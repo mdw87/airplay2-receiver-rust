@@ -1,0 +1,76 @@
+[package]
+name = "airplay2-receiver"
+version = "0.1.0"
+edition = "2021"
+authors = ["AirPlay2 Receiver Contributors"]
+description = "A high-performance AirPlay 2 audio receiver implementation in Rust"
+license = "MIT"
+repository = "https://github.com/mdw87/airplay2-receiver-rust"
+readme = "README.md"
+
+[dependencies]
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+tokio-util = "0.7"
+
+# HTTP/RTSP server
+axum = "0.7"
+tower = "0.4"
+hyper = "1.0"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+plist = "1.6"
+
+# Cryptography
+ed25519-dalek = "2.0"
+chacha20poly1305 = "0.10"
+aes = "0.8"
+cbc = "0.1"
+srp = "0.6"
+sha2 = "0.10"
+rand = "0.8"
+curve25519-dalek = "4.0"
+
+# Network
+mdns-sd = "0.10"
+socket2 = "0.5"
+get_if_addrs = "0.5.3"
+
+# Audio
+cpal = "0.15"
+symphonia = { version = "0.5", features = ["alac", "aac"] }
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+# CLI
+clap = { version = "4.4", features = ["derive"] }
+
+# Utilities
+anyhow = "1.0"
+thiserror = "1.0"
+bytes = "1.5"
+bitflags = "2.4"
+hex = "0.4"
+base64 = "0.21"
+uuid = { version = "1.6", features = ["v4"] }
+
+[dev-dependencies]
+tokio-test = "0.4"
+criterion = "0.5"
+
+[[bin]]
+name = "airplay2-receiver"
+path = "src/main.rs"
+
+[lib]
+name = "airplay2_receiver"
+path = "src/lib.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
